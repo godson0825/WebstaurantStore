@@ -40,9 +40,10 @@ public class TestCase {
 
 	public void addToCartTest() throws InterruptedException {
 		
+		// this is a list that will hold all the titles as Strings
 		List<String> itemListTitle = new ArrayList<String>();
 
-		// search for "stainless work table"
+		// entering "stainless work table" and using the search button
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("searchval"))).sendKeys("stainless work table");
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Search']"))).click();
 
@@ -52,7 +53,7 @@ public class TestCase {
 		int numberOfPages = Integer.parseInt(numOfPages);
 
 
-		// loop through all pages and add each search result title to a list
+		// loop through all pages and add each search result title to the list
 		for (int i = 1; i <= numberOfPages; i++) {
 
 			List<WebElement> itemsList = driver.findElements(By.xpath("//a[@data-testid='itemDescription']"));
@@ -70,9 +71,14 @@ public class TestCase {
 				wait.until(ExpectedConditions
 						.elementToBeClickable(By.xpath("(//input[@name='addToCartButton'])[" + lastItemNumber + "]")))
 						.click();
-				wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()='View Cart']"))).click();
+				wait.until(ExpectedConditions
+						.elementToBeClickable(By.xpath("//a[text()='View Cart']")))
+						.click();
+				
+				// the Thread.sleep is used to stop the execution flow of the code in order to see what is happening in the test
 				Thread.sleep(5000);
-
+				
+				
 				WebElement EmptyCartButton = wait
 						.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[text()='Empty Cart']"))); 
 				
